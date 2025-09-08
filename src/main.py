@@ -19,7 +19,7 @@ elif isinstance(annotations, dict) and "cells" in annotations:
         cell_sources.append(src)
     nb_source = "\n".join(cell_sources)
 
-    # Extract the list literal inside prompts = [...]
+    
     m = re.search(r"prompts\s*=\s*(\[.*?\])", nb_source, re.S)
     if not m:
         raise KeyError("Could not find a 'prompts = [...]' list in notebook JSON.")
