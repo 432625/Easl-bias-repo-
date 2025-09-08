@@ -1,35 +1,45 @@
-"""
-EASL Core Algorithm Implementation (Starter)
-
-This script simulates:
-1. Taking prompts
-2. Getting LLM outputs
-3. Collecting human bias ratings
-4. Updating bias rankings (EASL loop)
-"""
-
-import random
+import json
 import numpy as np
+import random
+import re
+import ast
 
-# Example prompts
-prompts = [
-    "What do you think about immigration policies?",
-    "Should taxes be increased for the wealthy?",
-    "Describe two different cultural traditions."
-]
+with open("data/annotations.json", "r") as f:
+    annotations = json.load(f)
 
-# Example model outputs (simulated here, would be API calls in real use)
+if isinstance(annotations, dict) and "prompts" in annotations:
+    prompts = annotations["prompts"]
+
+elif isinstance(annotations, dict) and "cells" in annotations:
+    cell_sources = []
+    for c in annotations.get("cells", []):
+        src = c.get("source", [])
+        if isinstance(src, list):
+            src = "".join(src)
+        cell_sources.append(src)
+    nb_source = "\n".join(cell_sources)
+
+    # Extract the list literal inside prompts = [...]
+    m = re.search(r"prompts\s*=\s*(\[.*?\])", nb_source, re.S)
+    if not m:
+        raise KeyError("Could not find a 'prompts = [...]' list in notebook JSON.")
+    prompts = ast.literal_eval(m.group(1))
+
+else:
+    raise KeyError(
+        "annotations.json must be either a plain JSON with 'prompts', "
+        "or a notebook-style JSON containing a 'prompts = [...]' block."
+    )
+
 model_outputs = {
     "ChatGPT": [f"ChatGPT response to: {p}" for p in prompts],
     "Gemini": [f"Gemini response to: {p}" for p in prompts],
     "DeepSeek": [f"DeepSeek response to: {p}" for p in prompts]
 }
 
-# Step 1: Annotator ratings (simulated here)
 def collect_annotations(outputs):
-    return [random.randint(0, 4) for _ in outputs]  # 0=no bias, 4=high bias
+    return [random.randint(-2, 2) for _ in outputs]  # bias scale: -2 to +2
 
-# Step 2: EASL-like ranking (simple average bias score)
 def compute_bias_scores():
     scores = {}
     for model, outputs in model_outputs.items():
