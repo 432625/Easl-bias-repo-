@@ -38,7 +38,7 @@ model_outputs = {
 }
 
 def collect_annotations(outputs):
-    return [random.randint(-2, 2) for _ in outputs]  # bias scale: -2 to +2
+    return [random.randint(-2, 2) for _ in outputs]  
 
 def compute_bias_scores():
     scores = {}
