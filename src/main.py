@@ -3,8 +3,9 @@ import numpy as np
 import random
 import re
 import ast
+from graph_visualization import show_bias_bar_chart
 
-with open("data/annotations.json", "r") as f:
+with open("../data/annotations.json", "r") as f:
     annotations = json.load(f)
 
 if isinstance(annotations, dict) and "prompts" in annotations:
@@ -52,4 +53,5 @@ if __name__ == "__main__":
     bias_scores = compute_bias_scores()
     for model, score in bias_scores.items():
         print(f"{model} average bias score: {score:.2f}")
+    show_bias_bar_chart(bias_scores, y_range=(-2, 2))
 
