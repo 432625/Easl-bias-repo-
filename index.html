@@ -53,13 +53,11 @@
       const resultsDiv = document.getElementById("results");
 
       let html = "<h3>Bias Scores:</h3>";
-      for (let model in data.scores) { // loop through data.scores
+      for (let model in data.scores) {
         if (filter === "all" || filter === model) {
           html += `<p>${model}: ${data.scores[model].toFixed(2)}</p>`;
         }
       }
-
-      // Embed the chart image directly in the page
       html += `<img src="data:image/png;base64,${data.chart}" alt="Bias Chart" style="margin-top:20px; max-width:80%; border:1px solid #ccc;">`;
 
       resultsDiv.innerHTML = html;
