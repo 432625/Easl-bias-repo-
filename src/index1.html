@@ -1,17 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
+  <meta charset="utf-8" />
   <title>Bias in LLM Models</title>
   <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
     h1 { text-align: center; }
-    p { text-align: center; }
-    body { text-align: center; font-family: Arial, sans-serif; }
-    button, select {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 10px;
-    }
+    button, select { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 10px; }
+    #results { margin-top: 20px; }
+    img { margin-top: 20px; max-width: 80%; border: 1px solid #ccc; }
+    footer { position: fixed; bottom: 0; width: 100%; text-align: center; font-size: 14px; color: gray; background: white; padding: 10px 0; border-top: 1px solid #ddd; }
   </style>
 </head>
 <body>
@@ -28,40 +26,34 @@
     <option value="DeepSeek">DeepSeek</option>
   </select>
 
-  <div id="results" style="margin-top: 20px;"></div>
+  <div id="results"></div>
 
-  <p style="
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 14px;
-    color: gray;
-    background-color: white;
-    padding: 10px 0;
-    border-top: 1px solid #ddd;
-  ">
-    Created by the CAP2 2025 team.
-  </p>
+  <footer>Created by the CAP2 2025 team.</footer>
 
   <script>
     document.getElementById("generateBtn").addEventListener("click", async () => {
-      const response = await fetch("/analyze", { method: "POST" });
-      const data = await response.json();
-
       const filter = document.getElementById("modelFilter").value;
-      const resultsDiv = document.getElementById("results");
+      const res = await fetch("/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(filter === "all" ? {} : { filter })
+      });
+
+      const data = await res.json();
+      const results = document.getElementById("results");
+
+      if (data.error) {
+        results.innerHTML = `<p style="color:red">Error: ${data.error}</p>`;
+        return;
+      }
 
       let html = "<h3>Bias Scores:</h3>";
-      for (let model in data.scores) {
-        if (filter === "all" || filter === model) {
-          html += `<p>${model}: ${data.scores[model].toFixed(2)}</p>`;
-        }
-      }
-      html += `<img src="data:image/png;base64,${data.chart}" alt="Bias Chart" style="margin-top:20px; max-width:80%; border:1px solid #ccc;">`;
-
-      resultsDiv.innerHTML = html;
+      for (let m in data.scores) html += `<p>${m}: ${data.scores[m].toFixed(2)}</p>`;
+      html += `<img src="data:image/png;base64,${data.chart}" alt="Bias Chart">`;
+      results.innerHTML = html;
     });
   </script>
 </body>
 </html>
+
+
