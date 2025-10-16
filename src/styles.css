@@ -1,5 +1,5 @@
 :root {
-  --bg-gradient: linear-gradient(180deg, #f7f9fc 0, #f7f9fc 62vh, #eef1f6 100%);
+  --bg-gradient: linear-gradient(180deg, #f7f9fc 0%, #f7f9fc 70vh, #eef1f6 100%);
   --card-bg: #ffffff;
   --text-main: #2c3e50;
   --text-muted: #6c7a89;
