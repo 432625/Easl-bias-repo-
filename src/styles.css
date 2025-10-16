@@ -1,79 +1,175 @@
-/* styles.css */
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  text-align: center;
+:root {
+  --bg-gradient: linear-gradient(180deg, #f7f9fc 0%, #eef1f6 100%);
+  --card-bg: #ffffff;
+  --text-main: #2c3e50;
+  --text-muted: #6c7a89;
+  --accent: #8baac9;
+  --accent-hover: #a5bfd8;
+  --border: #e3e7ee;
+  --shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
+  background: var(--bg-gradient);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+
+.container {
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 40px 25px;
+  text-align: center;
+}
+
 
 h1 {
-  font-size: 2.5rem;
-  margin-top: 40px;
-  color: #2c3e50;
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+  color: var(--text-main);
+  text-align: center;
+  letter-spacing: 0.5px;
 }
+
+h2 {
+  font-size: 1.6rem;
+  margin-top: 40px;
+  color: var(--text-main);
+  text-align: center;
+}
+
 
 p {
-  font-size: 1.1rem;
-  margin: 20px auto;
-  max-width: 700px;
-  line-height: 1.6;
-  color: #555;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 1.05rem;
+  margin: 15px 0;
+  text-align: justify;
 }
 
+
+ul, ol {
+  color: var(--text-muted);
+  text-align: left;
+  display: inline-block;
+  margin: 10px auto;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  padding-left: 20px;
+}
+
+
 button, select {
-  padding: 12px 25px;
-  font-size: 16px;
-  margin: 15px 10px;
+  background-color: var(--accent);
+  color: #fff;
   border: none;
-  border-radius: 5px;
-  background-color: #3498db;
-  color: white;
-  transition: background-color 0.3s ease;
+  border-radius: 8px;
+  padding: 12px 24px;
+  margin: 12px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 button:hover, select:hover {
-  background-color: #2980b9;
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
 select {
-  background-color: #ecf0f1;
-  color: #2c3e50;
-  border: 1px solid #ccc;
+  background-color: #f2f5f9;
+  color: var(--text-main);
+  border: 1px solid var(--border);
 }
 
+
 #results {
-  margin: 40px auto;
-  max-width: 800px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1050px;
+  margin: 50px auto 60px;
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 35px 25px;
+  transition: all 0.3s ease;
+}
+
+#results:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 #results p {
-  font-weight: bold;
-  color: #333;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 15px;
 }
 
-img {
-  margin-top: 20px;
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+#results img {
+  display: block;
+  margin: 20px auto;
+  max-width: 95%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
+
+
+#intro {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 40px 35px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+#intro:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+}
+
+#intro h2 {
+  margin-bottom: 15px;
+}
+
 
 footer {
-  position: fixed;
-  bottom: 0;
   width: 100%;
   text-align: center;
   font-size: 14px;
-  color: #aaa;
-  background: #fff;
-  padding: 10px 0;
-  border-top: 1px solid #eee;
+  color: var(--text-muted);
+  background-color: rgba(255, 255, 255, 0.85);
+  border-top: 1px solid var(--border);
+  padding: 15px 0;
+  box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.04);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+
+button, select, #intro, #results {
+  transition: all 0.25s ease-in-out;
+}
+
+
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.4rem; }
+  p, li { font-size: 0.95rem; }
+  .container { padding: 25px 15px; }
+  #results { padding: 25px 15px; }
 }
