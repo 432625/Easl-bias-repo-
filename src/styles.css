@@ -1,4 +1,3 @@
-
 :root {
   --bg-gradient: linear-gradient(180deg, #f7f9fc 0%, #eef1f6 100%);
   --card-bg: #ffffff;
@@ -70,7 +69,7 @@ ul, ol {
 
 
 button, select {
-  background-color: var(--accent);
+  background-color: #5ba8ff;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -83,7 +82,7 @@ button, select {
 }
 
 button:hover, select:hover {
-  background-color: var(--accent-hover);
+  background-color: #7bbcff;
   transform: translateY(-1px);
 }
 
@@ -91,6 +90,7 @@ select {
   background-color: #f2f5f9;
   color: var(--text-main);
   border: 1px solid var(--border);
+  vertical-align: middle;
 }
 
 
@@ -173,3 +173,20 @@ button, select, #intro, #results {
   .container { padding: 25px 15px; }
   #results { padding: 25px 15px; }
 }
+
+
+#bg-bubbles {
+  position: fixed;
+  inset: 0;               
+  width: 100%;
+  height: 100%;
+  z-index: 0;             
+  pointer-events: none;  
+}
+
+
+#intro, #results, h1, footer, button, label, select {
+  position: relative;
+  z-index: 1;
+}
+
