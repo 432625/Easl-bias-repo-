@@ -3,9 +3,13 @@ import numpy as np
 import random
 import re
 import ast
+import os
+
 from graph_visualization import show_bias_bar_chart
 
-with open("../data/annotations.json", "r") as f:
+
+DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "annotations.json")
+with open(DATA_PATH, "r") as f:
     annotations = json.load(f)
 
 if isinstance(annotations, dict) and "prompts" in annotations:
@@ -20,7 +24,6 @@ elif isinstance(annotations, dict) and "cells" in annotations:
         cell_sources.append(src)
     nb_source = "\n".join(cell_sources)
 
-    
     m = re.search(r"prompts\s*=\s*(\[.*?\])", nb_source, re.S)
     if not m:
         raise KeyError("Could not find a 'prompts = [...]' list in notebook JSON.")
@@ -34,12 +37,12 @@ else:
 
 model_outputs = {
     "ChatGPT": [f"ChatGPT response to: {p}" for p in prompts],
-    "Gemini": [f"Gemini response to: {p}" for p in prompts],
-    "DeepSeek": [f"DeepSeek response to: {p}" for p in prompts]
+    "Gemini":  [f"Gemini response to: {p}" for p in prompts],
+    "DeepSeek":[f"DeepSeek response to: {p}" for p in prompts]
 }
 
 def collect_annotations(outputs):
-    return [random.randint(-2, 2) for _ in outputs]  
+    return [random.randint(-2, 2) for _ in outputs]
 
 def compute_bias_scores():
     scores = {}
@@ -54,4 +57,5 @@ if __name__ == "__main__":
     for model, score in bias_scores.items():
         print(f"{model} average bias score: {score:.2f}")
     show_bias_bar_chart(bias_scores, y_range=(-2, 2))
+
 
