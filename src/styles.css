@@ -1,5 +1,5 @@
 :root {
-  --bg-gradient: linear-gradient(180deg, #f7f9fc 0%, #eef1f6 100%);
+  --bg-gradient: linear-gradient(180deg, #f7f9fc 0, #f7f9fc 62vh, #eef1f6 100%);
   --card-bg: #ffffff;
   --text-main: #2c3e50;
   --text-muted: #6c7a89;
@@ -15,6 +15,7 @@ html, body {
   margin: 0;
   padding: 0;
   background: var(--bg-gradient);
+  background-attachment: fixed;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-main);
   display: flex;
@@ -177,11 +178,11 @@ button, select, #intro, #results {
 
 #bg-bubbles {
   position: fixed;
-  inset: 0;               
+  inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;             
-  pointer-events: none;  
+  z-index: 0;
+  pointer-events: none;
 }
 
 
